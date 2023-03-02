@@ -5,7 +5,7 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import ActionsContainer from "./components/ActionsContainer";
-import ProductsContainer from "./components/ProductsContainer";
+import ProductsContainer from "./components/products/ProductsContainer";
 
 
 const DropDownItem = styled(Paper)(({ theme }) => ({
@@ -20,14 +20,13 @@ function App() {
   return (
     <Grid container spacing={1} sx={{ height: "100vh" }}>
       <Grid item xs={4}>
-        <Stack sx={{ height: "100vh" , paddingLeft: '5px',}} spacing={1}>
+        <Stack sx={{ height: "100%" , paddingLeft: '5px',}} spacing={1}>
           <ActionsContainer />
           <DropDownItem variant="outlined" elevation={0}>
           </DropDownItem>
         </Stack>
       </Grid>
       <ProductsContainer />
-      
     </Grid>
   );
 }

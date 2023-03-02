@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -7,6 +7,7 @@ import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import { Stack } from "@mui/system";
 import { Button } from "@mui/material";
+import DiagramDialog from "./diagram/DiagramDialog";
 
 const ActionsItem = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -18,9 +19,18 @@ const ActionsItem = styled(Paper)(({ theme }) => ({
   flexDirection: "row",
   justifyContent: "space-between;",
   alignItems: "flex-end",
+  marginTop: "10px",
 }));
 
 function ActionsContainer({ addOns, handleOpen, handleDelete, handleEdit }) {
+  const [open, setOpen] = useState(false);
+  const handleDiagramOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false)
+  }
+
   return (
     <ActionsItem elevation={0}>
       <Stack
@@ -77,7 +87,9 @@ function ActionsContainer({ addOns, handleOpen, handleDelete, handleEdit }) {
           alignItems="center"
           spacing={2}
         >
-          <Button variant="outlined">დიაგრამა</Button>
+          <DiagramDialog open={open} handleClose={handleClose} />
+
+          <Button variant="outlined" onClick={handleDiagramOpen}>დიაგრამა</Button>
           <ReplyIcon
             aria-label="delete"
             sx={{

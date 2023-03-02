@@ -23,13 +23,20 @@ function createData(code, name, price, country, startDate, endDate) {
 }
 
 const rows = [
-  createData("0001", "ვაშლი", 4.0, 'საქართველო', '3/2/2023', '3/2/2023'),
-  createData("0002", "ვაშლი", 4.0, 'საქართველო', '3/2/2023', '3/2/2023'),
-  createData("0003", "ვაშლი", 4.0, 'საქართველო', '3/2/2023', '3/2/2023'),
-  createData("0004", "ვაშლი", 4.0, 'საქართველო', '3/2/2023', '3/2/2023'),
-  createData("0005", "ვაშლი", 4.0, 'საქართველო', '3/2/2023', '3/2/2023'),
-  createData("0006", "ვაშლი", 4.0, 'საქართველო', '3/2/2023', '3/2/2023'),
-  createData("0007", "ვაშლი", 4.0, 'საქართველო', '3/2/2023', '3/2/2023'),
+  createData("0001", "ვაშლი", 4.0, "საქართველო", "3/2/2023", "3/2/2023"),
+  createData("0002", "ვაშლი", 4.0, "საქართველო", "3/2/2023", "3/2/2023"),
+  createData("0003", "ვაშლი", 4.0, "საქართველო", "3/2/2023", "3/2/2023"),
+  createData("0004", "ვაშლი", 4.0, "საქართველო", "3/2/2023", "3/2/2023"),
+  createData("0005", "ვაშლი", 4.0, "საქართველო", "3/2/2023", "3/2/2023"),
+  createData("0006", "ვაშლი", 4.0, "საქართველო", "3/2/2023", "3/2/2023"),
+  createData("0007", "ვაშლი", 4.0, "საქართველო", "3/2/2023", "3/2/2023"),
+  createData("0008", "ვაშლი", 4.0, "საქართველო", "3/2/2023", "3/2/2023"),
+  createData("0009", "ვაშლი", 4.0, "საქართველო", "3/2/2023", "3/2/2023"),
+  createData("0010", "ვაშლი", 4.0, "საქართველო", "3/2/2023", "3/2/2023"),
+  createData("0011", "ვაშლი", 4.0, "საქართველო", "3/2/2023", "3/2/2023"),
+  createData("0012", "ვაშლი", 4.0, "საქართველო", "3/2/2023", "3/2/2023"),
+  createData("0013", "ვაშლი", 4.0, "საქართველო", "3/2/2023", "3/2/2023"),
+  createData("0014", "ვაშლი", 4.0, "საქართველო", "3/2/2023", "3/2/2023"),
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -99,11 +106,7 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
-  const {
-    order,
-    orderBy,
-    onRequestSort,
-  } = props;
+  const { order, orderBy, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -111,9 +114,7 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
-          
-        </TableCell>
+        <TableCell padding="checkbox"></TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
@@ -150,7 +151,7 @@ EnhancedTableHead.propTypes = {
 export default function ProductsTable() {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("code");
-  const [selected, setSelected] = React.useState([]);
+  const [selected, setSelected] = React.useState("");
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -158,31 +159,18 @@ export default function ProductsTable() {
     setOrderBy(property);
   };
 
-
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
+  const handleClick = (event, code) => {
+    if (code === selected) {
+      setSelected("");
+    } else if (code !== selected) {
+      setSelected(code);
     }
-
-    setSelected(newSelected);
   };
-  const isSelected = (name) => selected.indexOf(name) !== -1;
+  const isSelected = (name) => selected === name;
   return (
-    <Box sx={{ width: "100%" }}>
-      <Paper sx={{ width: "100%", mb: 2 }}>
-        <TableContainer>
+    <Box>
+      <Paper>
+        <TableContainer sx={{ maxHeight: '91vh'}}>
           <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
             <EnhancedTableHead
               order={order}
@@ -197,6 +185,7 @@ export default function ProductsTable() {
                   const labelId = `enhanced-table-checkbox-${index}`;
                   return (
                     <TableRow
+                      style={{ overflow: "scroll" }}
                       hover
                       onClick={(event) => handleClick(event, row.code)}
                       role="checkbox"
