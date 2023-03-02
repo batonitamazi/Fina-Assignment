@@ -9,21 +9,27 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import Paper from "@mui/material/Paper";
-import Checkbox from "@mui/material/Checkbox";
 import { visuallyHidden } from "@mui/utils";
 
-function createData(code, name, price) {
+function createData(code, name, price, country, startDate, endDate) {
   return {
     code,
     name,
     price,
+    country,
+    startDate,
+    endDate,
   };
 }
 
 const rows = [
-  createData("0001", "ვაშლი", 4.0),
-  createData("0002", "მსხალი", 5.0),
-  createData("0003", "საზამთრო", 3.0),
+  createData("0001", "ვაშლი", 4.0, 'საქართველო', '3/2/2023', '3/2/2023'),
+  createData("0002", "ვაშლი", 4.0, 'საქართველო', '3/2/2023', '3/2/2023'),
+  createData("0003", "ვაშლი", 4.0, 'საქართველო', '3/2/2023', '3/2/2023'),
+  createData("0004", "ვაშლი", 4.0, 'საქართველო', '3/2/2023', '3/2/2023'),
+  createData("0005", "ვაშლი", 4.0, 'საქართველო', '3/2/2023', '3/2/2023'),
+  createData("0006", "ვაშლი", 4.0, 'საქართველო', '3/2/2023', '3/2/2023'),
+  createData("0007", "ვაშლი", 4.0, 'საქართველო', '3/2/2023', '3/2/2023'),
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -73,15 +79,29 @@ const headCells = [
     disablePadding: false,
     label: "ფასი",
   },
+  {
+    id: "country",
+    disablePadding: false,
+    label: "ქვეყანა",
+  },
+  {
+    id: "startDate",
+    numeric: true,
+    disablePadding: false,
+    label: "დაწყების თარიღი",
+  },
+  {
+    id: "endDate",
+    numeric: true,
+    disablePadding: false,
+    label: "დამთავრების თარიღი",
+  },
 ];
 
 function EnhancedTableHead(props) {
   const {
-    onSelectAllClick,
     order,
     orderBy,
-    numSelected,
-    rowCount,
     onRequestSort,
   } = props;
   const createSortHandler = (property) => (event) => {
@@ -92,15 +112,7 @@ function EnhancedTableHead(props) {
     <TableHead>
       <TableRow>
         <TableCell padding="checkbox">
-          <Checkbox
-            color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              "aria-label": "select all desserts",
-            }}
-          />
+          
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
@@ -129,9 +141,7 @@ function EnhancedTableHead(props) {
 }
 
 EnhancedTableHead.propTypes = {
-  numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
   order: PropTypes.oneOf(["asc", "desc"]).isRequired,
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
@@ -183,12 +193,12 @@ export default function ProductsTable() {
             <TableBody>
               {stableSort(rows, getComparator(order, orderBy)).map(
                 (row, index) => {
-                  const isItemSelected = isSelected(row.name);
+                  const isItemSelected = isSelected(row.code);
                   const labelId = `enhanced-table-checkbox-${index}`;
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
+                      onClick={(event) => handleClick(event, row.code)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
@@ -206,6 +216,9 @@ export default function ProductsTable() {
                       </TableCell>
                       <TableCell align="left">{row.name}</TableCell>
                       <TableCell align="left">{row.price}</TableCell>
+                      <TableCell align="left">{row.country}</TableCell>
+                      <TableCell align="left">{row.startDate}</TableCell>
+                      <TableCell align="left">{row.endDate}</TableCell>
                     </TableRow>
                   );
                 }

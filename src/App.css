@@ -6,3 +6,11 @@
   flex-direction: row;
   justify-content: space-between;
 }
+.date-pickers--container {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}

@@ -20,7 +20,7 @@ const ActionsItem = styled(Paper)(({ theme }) => ({
   alignItems: "flex-end",
 }));
 
-function ActionsContainer({ addOns }) {
+function ActionsContainer({ addOns, handleOpen, handleDelete, handleEdit }) {
   return (
     <ActionsItem elevation={0}>
       <Stack
@@ -31,6 +31,7 @@ function ActionsContainer({ addOns }) {
       >
         <AddIcon
           aria-label="add"
+          onClick={handleOpen}
           sx={{
             padding: "5px",
             backgroundColor: "#212121",
