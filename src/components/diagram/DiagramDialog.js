@@ -23,7 +23,9 @@ function DiagramDialog({ open, handleClose }) {
             <CloseIcon />
           </IconButton>
         </DialogTitle>
-        <DialogContent></DialogContent>
+        <DialogContent>
+            
+        </DialogContent>
       </Dialog>
     </div>
   );

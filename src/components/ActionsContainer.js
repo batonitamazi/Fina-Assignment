@@ -88,7 +88,6 @@ function ActionsContainer({ addOns, handleOpen, handleDelete, handleEdit }) {
           spacing={2}
         >
           <DiagramDialog open={open} handleClose={handleClose} />
-
           <Button variant="outlined" onClick={handleDiagramOpen}>დიაგრამა</Button>
           <ReplyIcon
             aria-label="delete"
