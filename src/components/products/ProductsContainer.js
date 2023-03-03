@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ProductsTable from "./ProductsTable";
 import { Grid, styled, Stack, Paper } from "@mui/material";
 import ActionsContainer from "../ActionsContainer";
-import ProductDialog from "./ProductDialog";
+import ProductDialog from "../Dialogs/ProductDialog";
 
 const DropDownItem = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -13,6 +13,7 @@ const DropDownItem = styled(Paper)(({ theme }) => ({
 }));
 function ProductsContainer() {
   const [open, setOpen] = useState(false);
+  
   const handleOpen = () => {
     setOpen(true);
   };

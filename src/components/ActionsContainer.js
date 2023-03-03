@@ -22,7 +22,7 @@ const ActionsItem = styled(Paper)(({ theme }) => ({
   marginTop: "10px",
 }));
 
-function ActionsContainer({ addOns, handleOpen, handleDelete, handleEdit }) {
+function ActionsContainer({ addOns, handleAddOpen, handleUpdateOpen, handleDeleteOpen}) {
   const [open, setOpen] = useState(false);
   const handleDiagramOpen = () => {
     setOpen(true);
@@ -41,7 +41,7 @@ function ActionsContainer({ addOns, handleOpen, handleDelete, handleEdit }) {
       >
         <AddIcon
           aria-label="add"
-          onClick={handleOpen}
+          onClick={handleAddOpen}
           sx={{
             padding: "5px",
             backgroundColor: "#212121",
@@ -65,6 +65,7 @@ function ActionsContainer({ addOns, handleOpen, handleDelete, handleEdit }) {
               backgroundColor: "#757575",
             },
           }}
+          onClick={handleUpdateOpen}
         />
         <ClearIcon
           aria-label="delete"
@@ -78,6 +79,7 @@ function ActionsContainer({ addOns, handleOpen, handleDelete, handleEdit }) {
               backgroundColor: "#757575",
             },
           }}
+          onClick={handleDeleteOpen}
         />
       </Stack>
       {addOns ? (
