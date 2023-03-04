@@ -43,18 +43,19 @@ function LeftContainer() {
   const handleAddNode = (newNodeName) => {
     setData((prevData) => {
       const selectedNodeIndex = prevData.findIndex(
-        ({ id }) => id === selectedNodeId
+        ({ code }) => code === selectedNodeId
       );
 
       // Selected node
-      const { id, name, children, parent } = prevData[selectedNodeIndex];
+      const { code, name, children, parent } = prevData[selectedNodeIndex];
+      console.log(selectedNodeId);
 
-      //New Node id
-      const newNodeId = uuidv4().toString();
+      //New Node code
+      const newNodeCode = uuidv4().toString();
 
       // Newly created node
       const newNode = {
-        id: newNodeId,
+        code: newNodeCode,
         name: newNodeName,
         children: [],
         parent: selectedNodeId,
@@ -62,17 +63,17 @@ function LeftContainer() {
 
       //new Parent Node copy node
       const newSelectedNode = {
-        id,
+        code,
         name,
-        children: [...children, newNodeId],
+        children: [...children, newNodeCode],
         parent,
       };
 
       //new Data which is the same as previous state data
       const newData = [...prevData];
 
-      categoriesService.update(newSelectedNode);
       categoriesService.create(newNode);
+      categoriesService.update(newSelectedNode);
       //push new item inside node list
       newData[selectedNodeIndex] = newSelectedNode;
       newData.push(newNode);
@@ -115,12 +116,7 @@ function LeftContainer() {
         handleSubmit={handleAddNode}
         node={selectedNodeId}
       />
-      {/* <TreeItemDialog
-        open={open}
-        handleClose={handleClose}
-        handleUpdateNode={handleUpdateNode}
-        node={selectedNodeId}
-      /> */}
+
       <Stack sx={{ height: "100%", paddingLeft: "5px" }} spacing={1}>
         <ActionsContainer
           handleAddOpen={handleOpen}

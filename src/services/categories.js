@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = "http://localhost:3003/api/categories/";
+const baseUrl = "http://localhost:3003/api/categories";
 
 const getAll = () => {
   const request = axios.get(baseUrl);
@@ -10,7 +10,7 @@ const create = async (newObject) => {
   return response.data;
 };
 const update = async (newObject) => {
-  const response = await axios.put(baseUrl, newObject);
+  const response = await axios.put(`${baseUrl}/${newObject.code}`, newObject);
   return response.data;
 };
 
