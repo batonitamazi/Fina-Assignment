@@ -7,26 +7,27 @@ import TreeItem from "@mui/lab/TreeItem";
 function GroupsContainer({ handleSelect, data }) {
   const renderTree = (currentNodeId) => {
     const currentNode = data.find(({ code }) => code === currentNodeId);
-    const { children, name: currentNodeName } = currentNode;
-    if (children.length > 0) {
+    if (currentNode) {
+      const { children, name: currentNodeName } = currentNode;
+      if (children.length > 0) {
+        return (
+          <TreeItem
+            key={currentNodeId}
+            nodeId={currentNodeId}
+            label={currentNodeName}
+          >
+            {children.map((childNodeId) => renderTree(childNodeId))}
+          </TreeItem>
+        );
+      }
       return (
         <TreeItem
           key={currentNodeId}
           nodeId={currentNodeId}
           label={currentNodeName}
-        >
-          {children.map((childNodeId) => renderTree(childNodeId))}
-        </TreeItem>
+        />
       );
     }
-
-    return (
-      <TreeItem
-        key={currentNodeId}
-        nodeId={currentNodeId}
-        label={currentNodeName}
-      />
-    );
   };
   return (
     <TreeView

@@ -27,6 +27,7 @@ function ActionsContainer({
   handleAddOpen,
   handleUpdateOpen,
   handleDelete,
+  data,
 }) {
   const [open, setOpen] = useState(false);
   const handleDiagramOpen = () => {
@@ -94,7 +95,7 @@ function ActionsContainer({
           alignItems="center"
           spacing={2}
         >
-          <DiagramDialog open={open} handleClose={handleClose} />
+          <DiagramDialog open={open} handleClose={handleClose} data={data} />
           <Button variant="outlined" onClick={handleDiagramOpen}>
             დიაგრამა
           </Button>

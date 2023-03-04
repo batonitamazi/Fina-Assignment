@@ -9,6 +9,7 @@ import Paper from "@mui/material/Paper";
 import TreeItemAddDialog from "../Dialogs/TreeItemAddDialog";
 import TreeItemDialog from "../Dialogs/TreeItemDialog";
 import categoriesService from "../../services/categories";
+import ConfirmationDialog from "../Dialogs/ConfirmationDialog";
 
 const DropDownItem = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -21,10 +22,14 @@ const DropDownItem = styled(Paper)(({ theme }) => ({
 function LeftContainer({ selectedNodeId, handleSelect }) {
   const [openAddDialog, setOpenAddDialog] = useState(false);
   const [openEditDialog, setOpenEditDialog] = useState(false);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [data, setData] = useState();
 
   const handleCloseAddDialog = () => {
     setOpenAddDialog(false);
+  };
+  const handleCloseDeleteDialog = () => {
+    setOpenDeleteDialog(false);
   };
   const handleCloseEditDialog = () => {
     setOpenEditDialog(false);
@@ -36,10 +41,18 @@ function LeftContainer({ selectedNodeId, handleSelect }) {
   const handleOpenEditDialog = () => {
     setOpenEditDialog(true);
   };
+  const handleOpenDeleteDialog = () => {
+    setOpenDeleteDialog(true);
+  };
 
   const deleteNode = () => {
-    setData((prevData) => prevData.filter(({ id }) => id !== selectedNodeId));
     ///// ... find children and delete them///////
+    const newData = data.filter((item) => {
+      return item.code !== selectedNodeId;
+    });
+
+    setData(newData);
+    setOpenDeleteDialog(false);
   };
 
   const handleAddNode = (newNodeName) => {
@@ -123,12 +136,17 @@ function LeftContainer({ selectedNodeId, handleSelect }) {
         handleClose={handleCloseEditDialog}
         handleSubmit={handleUpdateNode}
       />
+      <ConfirmationDialog
+        open={openDeleteDialog}
+        handleSubmit={deleteNode}
+        handleClose={handleCloseDeleteDialog}
+      />
 
       <Stack sx={{ height: "100%", paddingLeft: "5px" }} spacing={1}>
         <ActionsContainer
           handleAddOpen={handleOpenAddDialog}
           handleUpdateOpen={handleOpenEditDialog}
-          deleteNode={deleteNode}
+          handleDelete={handleOpenDeleteDialog}
         />
         <DropDownItem variant="outlined" elevation={0}>
           <GroupsContainer handleSelect={handleSelect} data={data} />

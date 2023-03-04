@@ -5,6 +5,7 @@ import ActionsContainer from "../ActionsContainer";
 import ProductDialog from "../Dialogs/ProductDialog";
 import productService from "../../services/products";
 import ProductEditDialog from ".././Dialogs/ProductEditDialog";
+import ConfirmationDialog from "../Dialogs/ConfirmationDialog";
 
 const DropDownItem = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -16,6 +17,7 @@ const DropDownItem = styled(Paper)(({ theme }) => ({
 function ProductsContainer({ selectedNodeId }) {
   const [openProductAddDialog, setOpenProductAddDialog] = useState(false);
   const [openProductEditDialog, setOpenProductEditDialog] = useState(false);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState("");
 
@@ -25,12 +27,18 @@ function ProductsContainer({ selectedNodeId }) {
   const handleOpenProductEditDialog = () => {
     setOpenProductEditDialog(true);
   };
+  const handleOpenDeleteDialog = () => {
+    setOpenDeleteDialog(true);
+  };
 
   const handleCloseProductAddDialog = () => {
     setOpenProductAddDialog(false);
   };
   const handleCloseProductEditDialog = () => {
     setOpenProductEditDialog(false);
+  };
+  const handleCloseDeleteDialog = () => {
+    setOpenDeleteDialog(false);
   };
 
   const handleAddProduct = (
@@ -96,6 +104,7 @@ function ProductsContainer({ selectedNodeId }) {
       (product) => product.id !== selectedProduct
     );
     setProducts(newProducts);
+    setOpenDeleteDialog(false);
   };
   useEffect(() => {
     if (selectedNodeId !== "") {
@@ -120,12 +129,18 @@ function ProductsContainer({ selectedNodeId }) {
         selectedNodeId={selectedNodeId}
         selectedProduct={selectedProduct}
       />
+      <ConfirmationDialog
+        open={openDeleteDialog}
+        handleClose={handleCloseDeleteDialog}
+        handleSubmit={handleDelete}
+      />
       <Stack sx={{ height: "100%", paddingRight: "5px" }} spacing={1}>
         <ActionsContainer
           addOns={true}
           handleAddOpen={handleOpenProductAddDialog}
           handleUpdateOpen={handleOpenProductEditDialog}
-          handleDelete={handleDelete}
+          handleDelete={handleOpenDeleteDialog}
+          data={products}
         />
         <DropDownItem elevation={0}>
           <ProductsTable
