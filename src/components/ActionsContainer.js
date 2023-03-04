@@ -22,14 +22,19 @@ const ActionsItem = styled(Paper)(({ theme }) => ({
   marginTop: "10px",
 }));
 
-function ActionsContainer({ addOns, handleAddOpen, handleUpdateOpen, handleDeleteOpen}) {
+function ActionsContainer({
+  addOns,
+  handleAddOpen,
+  handleUpdateOpen,
+  deleteNode,
+}) {
   const [open, setOpen] = useState(false);
   const handleDiagramOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
   return (
     <ActionsItem elevation={0}>
@@ -79,7 +84,7 @@ function ActionsContainer({ addOns, handleAddOpen, handleUpdateOpen, handleDelet
               backgroundColor: "#757575",
             },
           }}
-          onClick={handleDeleteOpen}
+          onClick={deleteNode}
         />
       </Stack>
       {addOns ? (
@@ -90,7 +95,9 @@ function ActionsContainer({ addOns, handleAddOpen, handleUpdateOpen, handleDelet
           spacing={2}
         >
           <DiagramDialog open={open} handleClose={handleClose} />
-          <Button variant="outlined" onClick={handleDiagramOpen}>დიაგრამა</Button>
+          <Button variant="outlined" onClick={handleDiagramOpen}>
+            დიაგრამა
+          </Button>
           <ReplyIcon
             aria-label="delete"
             sx={{

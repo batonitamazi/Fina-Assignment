@@ -8,8 +8,8 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Clear";
 
-function TreeItemDialog({ open, handleClose, handleUpdate, data}) {
-  const [value, setValue] = useState("")
+function TreeItemDialog({ open, handleClose, handleUpdateNode }) {
+  const [value, setValue] = useState("");
   return (
     <div>
       <Dialog open={open} onClose={handleClose}>
@@ -36,14 +36,16 @@ function TreeItemDialog({ open, handleClose, handleUpdate, data}) {
             label="კატეგორიის სახელი"
             onChange={(event) => setValue(event.target.value)}
             type="text"
-            defaultValue={data.name}
             fullWidth
             variant="outlined"
-            
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => handleUpdate(value)} variant="contained" color="success">
+          <Button
+            onClick={() => handleUpdateNode(value)}
+            variant="contained"
+            color="success"
+          >
             save
           </Button>
           <Button onClick={handleClose} variant="contained" color="error">

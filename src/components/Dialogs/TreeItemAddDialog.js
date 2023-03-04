@@ -7,8 +7,8 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Clear";
-function TreeItemAddDialog({open, handleClose, handleSubmit, node}) {
-  const [name, setName] = useState("")
+function TreeItemAddDialog({ open, handleClose, handleSubmit }) {
+  const [name, setName] = useState("");
   return (
     <div>
       <Dialog open={open} onClose={handleClose}>
@@ -37,19 +37,29 @@ function TreeItemAddDialog({open, handleClose, handleSubmit, node}) {
             fullWidth
             variant="outlined"
             value={name}
-            onChange={event => setName(event.target.value)}
+            onChange={(event) => setName(event.target.value)}
           />
         </DialogContent>
         <DialogActions>
           <Button
-            onClick={() => handleSubmit(name)}
+            onClick={() => {
+              handleSubmit(name);
+              setName("");
+            }}
             variant="contained"
             color="success"
             disabled={!name}
           >
             save
           </Button>
-          <Button onClick={handleClose} variant="contained" color="error">
+          <Button
+            onClick={() => {
+              handleClose();
+              setName("");
+            }}
+            variant="contained"
+            color="error"
+          >
             delete
           </Button>
         </DialogActions>
