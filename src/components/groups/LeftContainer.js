@@ -18,21 +18,23 @@ const DropDownItem = styled(Paper)(({ theme }) => ({
   border: "1px solid #212121",
 }));
 
-function LeftContainer() {
-  const [selectedNodeId, setSelectedNodeId] = useState("");
-  const [open, setOpen] = useState(false);
+function LeftContainer({ selectedNodeId, handleSelect }) {
+  const [openAddDialog, setOpenAddDialog] = useState(false);
+  const [openEditDialog, setOpenEditDialog] = useState(false);
   const [data, setData] = useState();
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleCloseAddDialog = () => {
+    setOpenAddDialog(false);
+  };
+  const handleCloseEditDialog = () => {
+    setOpenEditDialog(false);
   };
 
-  const handleOpen = () => {
-    setOpen(true);
+  const handleOpenAddDialog = () => {
+    setOpenAddDialog(true);
   };
-
-  const handleSelect = (event, nodeId) => {
-    setSelectedNodeId(nodeId);
+  const handleOpenEditDialog = () => {
+    setOpenEditDialog(true);
   };
 
   const deleteNode = () => {
@@ -48,7 +50,6 @@ function LeftContainer() {
 
       // Selected node
       const { code, name, children, parent } = prevData[selectedNodeIndex];
-      console.log(selectedNodeId);
 
       //New Node code
       const newNodeCode = uuidv4().toString();
@@ -77,7 +78,7 @@ function LeftContainer() {
       //push new item inside node list
       newData[selectedNodeIndex] = newSelectedNode;
       newData.push(newNode);
-      setOpen(false);
+      setOpenAddDialog(false);
       return newData;
     });
   };
@@ -86,11 +87,12 @@ function LeftContainer() {
     setData((prevData) => {
       //Selected Node Index
       const selectedNodeIndex = prevData.findIndex(
-        ({ id }) => id === selectedNodeId
+        ({ code }) => code === selectedNodeId
       );
 
       // Selected node
       const SelectedNode = prevData[selectedNodeIndex];
+
       //Update Selected node name
       SelectedNode["name"] = newNodeNameForUpdate;
 
@@ -99,7 +101,8 @@ function LeftContainer() {
 
       //modify selectedNodeIndex item inside newData Array
       newData[selectedNodeIndex] = SelectedNode;
-      setOpen(false);
+      categoriesService.update(SelectedNode);
+      setOpenEditDialog(false);
       return newData;
     });
   };
@@ -111,16 +114,20 @@ function LeftContainer() {
   return (
     <Grid item xs={4} sx={{ height: "100vh" }}>
       <TreeItemAddDialog
-        open={open}
-        handleClose={handleClose}
+        open={openAddDialog}
+        handleClose={handleCloseAddDialog}
         handleSubmit={handleAddNode}
-        node={selectedNodeId}
+      />
+      <TreeItemDialog
+        open={openEditDialog}
+        handleClose={handleCloseEditDialog}
+        handleSubmit={handleUpdateNode}
       />
 
       <Stack sx={{ height: "100%", paddingLeft: "5px" }} spacing={1}>
         <ActionsContainer
-          handleAddOpen={handleOpen}
-          handleUpdateOpen={handleOpen}
+          handleAddOpen={handleOpenAddDialog}
+          handleUpdateOpen={handleOpenEditDialog}
           deleteNode={deleteNode}
         />
         <DropDownItem variant="outlined" elevation={0}>

@@ -26,7 +26,7 @@ function ActionsContainer({
   addOns,
   handleAddOpen,
   handleUpdateOpen,
-  deleteNode,
+  handleDelete,
 }) {
   const [open, setOpen] = useState(false);
   const handleDiagramOpen = () => {
@@ -84,7 +84,7 @@ function ActionsContainer({
               backgroundColor: "#757575",
             },
           }}
-          onClick={deleteNode}
+          onClick={handleDelete}
         />
       </Stack>
       {addOns ? (

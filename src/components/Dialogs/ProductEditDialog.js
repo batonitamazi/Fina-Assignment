@@ -8,7 +8,13 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Clear";
 
-function ProductDialog({ open, handleClose, handleSubmit, selectedNodeId }) {
+function ProductEditDialog({
+  open,
+  handleClose,
+  handleSubmit,
+  selectedNodeId,
+  selectedProduct,
+}) {
   const [code, setCode] = useState("");
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
@@ -113,6 +119,7 @@ function ProductDialog({ open, handleClose, handleSubmit, selectedNodeId }) {
             color="success"
             onClick={() =>
               handleSubmit(
+                selectedProduct,
                 selectedNodeId,
                 code,
                 title,
@@ -134,4 +141,4 @@ function ProductDialog({ open, handleClose, handleSubmit, selectedNodeId }) {
   );
 }
 
-export default ProductDialog;
+export default ProductEditDialog;

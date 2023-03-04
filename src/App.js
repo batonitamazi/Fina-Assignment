@@ -1,14 +1,22 @@
 import "./App.css";
-import * as React from "react";
+import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
 import ProductsContainer from "./components/products/ProductsContainer";
 import LeftContainer from "./components/groups/LeftContainer";
 
 function App() {
+  const [selectedNodeId, setSelectedNodeId] = useState("");
+
+  const handleSelect = (event, nodeId) => {
+    setSelectedNodeId(nodeId);
+  };
   return (
     <Grid container spacing={1} sx={{ height: "100vh" }}>
-      <LeftContainer />
-      <ProductsContainer />
+      <LeftContainer
+        selectedNodeId={selectedNodeId}
+        handleSelect={handleSelect}
+      />
+      <ProductsContainer selectedNodeId={selectedNodeId} />
     </Grid>
   );
 }
