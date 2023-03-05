@@ -50,15 +50,27 @@ function ProductsContainer({ selectedNodeId }) {
     startDate,
     endDate
   ) => {
+    let newStartDate = new Date(startDate).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+    let newEndDate = new Date(endDate).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+    console.log(newStartDate, newEndDate);
     const newProduct = {
       code: code,
       category: selectedNodeId,
       title: title,
       price: price,
       country: country,
-      startDate: startDate,
-      endDate: endDate,
+      startDate: newStartDate,
+      endDate: newEndDate,
     };
+
     productService.createProducts(newProduct);
     const newProducts = [...products];
     newProducts.push(newProduct);
@@ -80,6 +92,17 @@ function ProductsContainer({ selectedNodeId }) {
     const selectedNodeIndex = products.findIndex(
       ({ id }) => id === selectedProduct
     );
+    let newStartDate = new Date(startDate).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+    let newEndDate = new Date(endDate).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+    console.log(newStartDate, newEndDate);
 
     const newProduct = {
       id: selectedProduct,
@@ -88,8 +111,8 @@ function ProductsContainer({ selectedNodeId }) {
       title: title,
       price: price,
       country: country,
-      startDate: startDate,
-      endDate: endDate,
+      startDate: newStartDate,
+      endDate: newEndDate,
     };
     productService.update(newProduct);
     const newProducts = [...products];
