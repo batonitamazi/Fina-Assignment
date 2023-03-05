@@ -60,7 +60,6 @@ function ProductsContainer({ selectedNodeId }) {
       month: "2-digit",
       day: "2-digit",
     });
-    console.log(newStartDate, newEndDate);
     const newProduct = {
       code: code,
       category: selectedNodeId,
@@ -102,7 +101,6 @@ function ProductsContainer({ selectedNodeId }) {
       month: "2-digit",
       day: "2-digit",
     });
-    console.log(newStartDate, newEndDate);
 
     const newProduct = {
       id: selectedProduct,

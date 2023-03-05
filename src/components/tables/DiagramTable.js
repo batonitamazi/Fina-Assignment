@@ -33,7 +33,6 @@ const useStyles = makeStyles({
 });
 
 function DiagramTable({ data }) {
-  console.log(data);
   const classes = useStyles();
   const today = new Date();
   const columnHeaders = [];
@@ -51,7 +50,6 @@ function DiagramTable({ data }) {
 
   // Helper function to check if a given date falls between two other dates
   const isDateInRange = (date, startDate, endDate) => {
-    console.log(date, startDate, endDate);
     return date >= startDate && date <= endDate;
   };
   // Helper function to determine the CSS class for a given cell based on the product and date

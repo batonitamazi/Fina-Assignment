@@ -11,17 +11,6 @@ import TableSortLabel from "@mui/material/TableSortLabel";
 import Paper from "@mui/material/Paper";
 import { visuallyHidden } from "@mui/utils";
 
-function createData(code, name, price, country, startDate, endDate) {
-  return {
-    code,
-    name,
-    price,
-    country,
-    startDate,
-    endDate,
-  };
-}
-
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
